@@ -16,7 +16,603 @@
       --bg-color: #ffffff;
       --text-main: #111827;
       --text-muted: #6b7280;
+      --border-color: #e5e7eb;<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>James Sevilla | Portfolio</title>
+  
+  <style>
+    /* ==========================================================================
+       FONTS & VARIABLES
+       ========================================================================== */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      /* Light Theme (Default) */
+      --bg-color: #ffffff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
       --border-color: #e5e7eb;
+      --blue-accent: #3b82f6;
+      --card-dark: #1f2937;
+      --btn-light-bg: #ffffff;
+      --btn-light-hover: #f9fafb;
+      --list-border: #f3f4f6;
+      --badge-bg: #eff6ff;
+      --badge-text: #1d4ed8;
+      
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      /* Dark Theme Overrides */
+      --bg-color: #111827;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-color: #374151;
+      --card-dark: #1f2937; 
+      --btn-light-bg: #1f2937;
+      --btn-light-hover: #374151;
+      --list-border: #1f2937;
+      --badge-bg: #1e3a8a;
+      --badge-text: #93c5fd;
+    }
+
+    /* ==========================================================================
+       RESET & BASE STYLES
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ==========================================================================
+       LAYOUT & CONTAINERS
+       ========================================================================== */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .grid-2-col {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    .grid-2-col-even {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    section h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ==========================================================================
+       COMPONENTS
+       ========================================================================== */
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 2rem;
+      background-color: var(--btn-light-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      z-index: 100;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05);
+      background-color: var(--btn-light-hover);
+    }
+
+    /* Profile Header */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      background-color: #f3f4f6;
+      object-fit: cover;
+    }
+
+    .profile-info h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .location {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .titles {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Buttons */
+    .actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-dark {
+      background-color: var(--text-main);
+      color: var(--bg-color);
+      border: 1px solid var(--text-main);
+    }
+
+    .btn-dark:hover {
+      opacity: 0.9;
+    }
+
+    .btn-light {
+      background-color: var(--btn-light-bg);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-light:hover {
+      background-color: var(--btn-light-hover);
+    }
+
+    /* Badges & Icons */
+    .learning-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background-color: var(--badge-bg);
+      color: var(--badge-text);
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: currentColor;
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ID Card Feature */
+    .dark-card {
+      background: linear-gradient(135deg, #1f2937, #111827);
+      border-radius: 12px;
+      padding: 2rem;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      min-height: 350px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-card-icon {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .dark-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .dark-card-subtitle {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+
+    .dark-card-bottom {
+      margin-top: auto;
+    }
+
+    .dark-card-bottom p {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 0.25rem;
+    }
+
+    .dark-card-bottom strong {
+      font-size: 1rem;
+      color: white;
+    }
+
+    /* Typography & Lists */
+    .about-text p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .stack-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .stack-group h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .stack-list {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--list-border);
+      transition: border-color 0.3s ease;
+    }
+
+    .list-item:last-child {
+      border-bottom: none;
+    }
+
+    .list-item-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .list-item-subtitle {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .list-item-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding-top: 4rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.3s ease;
+    }
+
+    /* ==========================================================================
+       MEDIA QUERIES (Mobile Responsiveness)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .grid-2-col, .grid-2-col-even {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+      
+      .dark-card {
+        min-height: 250px;
+      }
+      
+      footer {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+    <svg id="moon-icon" class="icon" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+    <svg id="sun-icon" class="icon" viewBox="0 0 24 24" style="display: none;">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </button>
+
+  <main class="container">
+    
+    <header class="profile-header">
+      <img src="profile.png" alt="James Sevilla" class="avatar">
+      
+      <div class="profile-info">
+        <h1>James Sevilla</h1>
+        <p class="location">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Quezon City, Philippines
+        </p>
+        <p class="titles">CS Student \ Web Developer</p>
+        
+        <div class="actions">
+          <button class="btn btn-dark" onclick="window.location.href='mailto:your@email.com'">
+            <svg class="icon" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            Schedule a Call
+          </button>
+          <button class="btn btn-light" onclick="window.location.href='https://github.com/yourusername'">
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            GitHub
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid-2-col">
+      <section class="about-text">
+        <h2>About</h2>
+        <p>I'm a 20-year-old Computer Science student from Quezon City, Philippines, on my way to my 3rd year. I am passionate about building my skills through real projects built from scratch.</p>
+        
+        <p>I use XAMPP and Notepad++ for local development — simple tools, but I make them work. Every big developer started somewhere, and I focus on strengthening my fundamentals.</p>
+        
+        <p>My goal is to secure a web development internship where I can apply my knowledge of backend data handling and modern UI styling to add value to an engineering team.</p>
+      </section>
+
+      <section>
+        <div class="dark-card">
+          <div>
+            <div class="dark-card-icon">>_</div>
+            <div class="dark-card-title">DEV BUILDER</div>
+            <div class="dark-card-subtitle">CS STUDENT ACCESS</div>
+          </div>
+          <div class="dark-card-bottom">
+            <p>DEVELOPER</p>
+            <strong>JAMES</strong>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="grid-2-col-even">
+      <section>
+        <h2>Tech Stack</h2>
+        
+        <div class="stack-group">
+          <h3>Frontend</h3>
+          <div class="stack-list">
+            <span>HTML5</span>
+            <span>CSS3</span>
+            <span>JavaScript</span>
+          </div>
+        </div>
+
+        <div class="stack-group">
+          <h3>Backend</h3>
+          <div class="stack-list">
+            <span>PHP</span>
+            <span>MySQL</span>
+            <span>XAMPP</span>
+          </div>
+        </div>
+
+        <div class="stack-group">
+          <h3>Tools & Track</h3>
+          <div class="stack-list">
+            <span>Notepad++</span>
+            <span>Git / GitHub</span>
+          </div>
+          
+          <div class="learning-badge">
+            <div class="pulse-dot"></div>
+            Currently Learning: React.js & MVC Architecture
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Projects</h2>
+        
+        <div class="list-item">
+          <div>
+            <div class="list-item-title">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Personal Portfolio Minimalist
+            </div>
+            <div class="list-item-subtitle">HTML5, CSS Variables, Vanilla JS • Theme System</div>
+          </div>
+          <div class="list-item-date">2026</div>
+        </div>
+
+        <div class="list-item">
+          <div>
+            <a href="http://james-taskpulse.free.nf" target="_blank">
+              <div class="list-item-title" style="transition: color 0.2s;" onmouseover="this.style.color='var(--blue-accent)'" onmouseout="this.style.color=''">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                TaskPulse | Developer Dashboard 
+                <span style="font-size: 0.75rem; color: var(--blue-accent); margin-left: 8px; font-weight: 700;">[ Test Live App ↗ ]</span>
+              </div>
+            </a>
+            <div class="list-item-subtitle">PHP, MySQL, JavaScript • Enterprise-grade CRUD app with heuristic input validation & live-search.</div>
+          </div>
+          <div class="list-item-date">2026</div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer>
+      <div>© 2026 James Sevilla. All rights reserved.</div>
+      <div style="display:flex; gap: 1.5rem;">
+        <a href="mailto:your@email.com">Email</a>
+        <a href="https://github.com/yourusername">GitHub</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // DOM Elements
+    const toggleBtn = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+    const moonIcon = document.getElementById('moon-icon');
+    const sunIcon = document.getElementById('sun-icon');
+
+    // Retrieve user preference from Local Storage
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Initialize Theme on Load
+    if (savedTheme === 'dark') {
+      htmlElement.setAttribute('data-theme', 'dark');
+      moonIcon.style.display = 'none';
+      sunIcon.style.display = 'block';
+    }
+
+    // Toggle Click Handler
+    toggleBtn.addEventListener('click', () => {
+      const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+      
+      if (isDark) {
+        // Switch to Light Mode
+        htmlElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        moonIcon.style.display = 'block';
+        sunIcon.style.display = 'none';
+      } else {
+        // Switch to Dark Mode
+        htmlElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>
       --blue-accent: #3b82f6;
       --card-dark: #1f2937;
       --btn-light-bg: #ffffff;
